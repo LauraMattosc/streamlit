@@ -1,0 +1,4 @@
+streamlit_agraph
+streamlit == 1.13
+pandas
+Pillow
