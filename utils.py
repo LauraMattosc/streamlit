@@ -140,8 +140,8 @@ def build_graph_v2(df):
                
                
 
-    config = Config(width=750, 
-                    height=750,
+    config = Config(width='400px', 
+                    height='400px',
                     collapsible = True,
                     overlap = False,
                     nodesep = 10,
