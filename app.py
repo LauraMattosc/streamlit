@@ -37,10 +37,15 @@ pessoas = config.PESSOAS
 
 col1, col2 = st.columns(2)
 with col1:
-    st.title('Mapa de Conexões Rede de Líderes')
+    original_title = '<p style="font-family:sans serif; color:#16537e; font-size: 50px;">Mapa de Conexões Rede de Líderes</p>'
+    st.markdown(original_title, unsafe_allow_html=True)
+    
+    #st.title('Mapa de Conexões Rede de Líderes')
+    
+    
 with col2:
-    logo = Image.open('logo.jpeg')
-    st.image(logo,width=200)
+    logo = Image.open('logo.png')
+    st.image(logo,width=400)
 
 
 
@@ -56,7 +61,10 @@ container2 = st.container()
 #coloco cada imagem em um container.
 with container2:
     
-    st.header("Filtros")
+    #teste
+    original_title = '<p style="font-family:sans serif; color:#16537e; font-size: 30px;">Filtros</p>'
+    st.markdown(original_title, unsafe_allow_html=True)
+    
     lados = st.multiselect(
                       'Lados',
                       ['oferta','recebe'],
@@ -65,34 +73,82 @@ with container2:
     df = df[df["lado"].isin(lados)]
     
     
-    st.write("visualização dos temas")
-    #irei colocar o filtro de temas
-    
     with st.expander("Selecione os temas"):
         temas_options = st.multiselect(
                           'TEMAS',
                           temas,
                           temas)
         
+        all_temas = st.checkbox('Selecionar todos os temas?')
+        if all_temas:
+            temas_options = config.TEMAS
+        
+        
+        
+    
+    
     with st.expander("Selecione as pessoas"):
         pessoas_options = st.multiselect(
                           'PESSOAS',
                           pessoas,
                           pessoas)
         
+        todas_as_pessoas = st.checkbox('Selecionar todas as pessoas?')
+        if todas_as_pessoas:
+            pessoas_options = config.PESSOAS    
+        
+    
     df = df[df["TEMA"].isin(temas_options)]
     df = df[df["PESSOA"].isin(pessoas_options)]
     
     
        
-    st.header("Dados de Conexão")
+    
+    
     df = df[df["TEMA"].isin(temas_options)]
     df = df[df["PESSOA"].isin(pessoas_options)]
-    st.dataframe(df)
+    
+    
+
+        
+    original_title = '<p style="font-family:sans serif; color:#16537e; font-size: 50px;">Dados de Conexão</p>'
+    st.markdown(original_title, unsafe_allow_html=True)
+    st.dataframe(df[['PESSOA', 'TEMA', 'lado']])
+    
+    #st.title('Mapa de Conexões Rede de Líderes')
+    
+    original_title = '<p style="font-family:sans serif; color:#16537e; font-size: 50px;">Dados de Contato</p>'
+    st.markdown(original_title, unsafe_allow_html=True)
+    
+    with st.expander("Linkedin"):
+       
+        new_df = df.drop_duplicates(subset=['PESSOA'], keep="first")
+        
+        
+        def make_clickable(link):
+            # target _blank to open new window
+            # extract clickable text to display for your link
+            text = link.split("/")[-2]
+            return f'<a target="_blank" href="{link}">{text}</a>'
+        
+        # link is the column with hyperlinks
+        new_df['LINKEDIN'] = new_df['LINKEDIN'].apply(make_clickable)
+        new_df = new_df[["PESSOA","LINKEDIN"]].to_html(escape=False)
+        st.write(new_df, unsafe_allow_html=True)
+        
+        
+        #st.markdown(new_df[['PESSOA','LINK_PESSOAS']].to_html(), unsafe_allow_html=True)
+        
+
+    
+    
+    
 
 
 with container1:
-    st.header("Temas de Conexão")
+    original_title = '<p style="font-family:sans serif; color:#0ae198; font-size: 30px;">Temas de Conexão</p>'
+    st.markdown(original_title, unsafe_allow_html=True)
+    
     return_value = utils.build_graph_v2(df)
     
 
