@@ -15,8 +15,9 @@ def build_graph(df):
             nodes.append( Node(id=df.iloc[i]["TEMA"], 
                                 label=df.iloc[i]["TEMA"], 
                                 size=len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]),
-                                color = "#16537e"
-                                #shape="circularImage",
+                                color = "#16537e",
+                                shape="circularImage",
+                                image = "https://juliocprocha.wordpress.com/"
                           )) # includes **kwargs
             add_nodes.append(df.iloc[i]["TEMA"])
  
@@ -28,7 +29,7 @@ def build_graph(df):
             nodes.append( Node(id=df.iloc[i]["PESSOA"], 
                                 label=df.iloc[i]["PESSOA"], 
                                 size=7,
-                                color = "#0ae198"
+                                color = "#0ae198",
                                 #shape="circularImage",
                           )) # includes **kwargs
             add_nodes.append(df.iloc[i]["PESSOA"])
@@ -68,6 +69,9 @@ def build_graph(df):
            edges=edges, 
            config=config)
     
+    
+    
+    
 
 
 def build_graph_v2(df):
@@ -99,7 +103,8 @@ def build_graph_v2(df):
             nodes.append( Node(id=df.iloc[i]["PESSOA"], 
                                 label=df.iloc[i]["PESSOA"], 
                                 size=13,
-                                color = "#0ae198"
+                                color = "#0ae198",
+                                #image = "https://juliocprocha.wordpress.com/",
                                 #shape="circularImage",
                           )) # includes **kwargs
             add_nodes.append(df.iloc[i]["PESSOA"])
@@ -140,8 +145,8 @@ def build_graph_v2(df):
                
                
 
-    config = Config(width=300, 
-                    height=500,
+    config = Config(width='100%', 
+                    height=750,
                     collapsible = True,
                     overlap = False,
                     nodesep = 10,
@@ -156,7 +161,6 @@ def build_graph_v2(df):
            edges=edges, 
            config=config)
     
-
 
 
 
