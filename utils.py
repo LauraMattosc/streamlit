@@ -83,11 +83,17 @@ def build_graph_v2(df):
     for i in range(len(df)):
         
         if df.iloc[i]["TEMA"] not in  add_nodes:
+            
+            if len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]) < 8:
+                SIZE = 8
+            else:
+                SIZE = len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]) * 0.5
+            
             nodes.append( Node(id=df.iloc[i]["TEMA"], 
                                 label=df.iloc[i]["TEMA"], 
-                                size=len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]),
+                                size=SIZE,
                                 color = "#16537e",
-                                mass = 1.1
+                                mass = 3.5
                                 #shape="circularImage",
                           )) # includes **kwargs
             
@@ -102,8 +108,9 @@ def build_graph_v2(df):
             
             nodes.append( Node(id=df.iloc[i]["PESSOA"], 
                                 label=df.iloc[i]["PESSOA"], 
-                                size=13,
+                                size=8,
                                 color = "#0ae198",
+                                font = {"size":8}
                                 #image = "https://juliocprocha.wordpress.com/",
                                 #shape="circularImage",
                           )) # includes **kwargs
@@ -123,20 +130,20 @@ def build_graph_v2(df):
                
            if sub_df.iloc[edge]["lado"] == "oferta":
                edges.append( Edge(source=sub_df.iloc[edge]["PESSOA"], 
-                                   label="oferta",
+                                   #label="oferta",
                                    target=sub_df.iloc[edge]["TEMA"],
                                    color='#000000',
-                                   font = {"size":5}
+                                   #font = {"size":5}
                                    # **kwargs
                                    ) 
                              )
                
            else:
                 edges.append(Edge(source=sub_df.iloc[edge]["TEMA"], 
-                                    label="recebe", 
+                                    #label="recebe", 
                                     target=sub_df.iloc[edge]["PESSOA"],
                                     color='#000000',
-                                    font = {"size":5}
+                                    #font = {"size":5}
                                     # **kwargs
                                     ) 
                               )
@@ -150,6 +157,7 @@ def build_graph_v2(df):
                     collapsible = True,
                     overlap = False,
                     nodesep = 100,
+                    improvedLayout=True,
                     #center = True,
                     repulsion= {'centralGravity': 2}
                     #splines = True,
@@ -161,7 +169,6 @@ def build_graph_v2(df):
            edges=edges, 
            config=config)
     
-
 
 
 
