@@ -53,7 +53,8 @@ with col2:
 
 
 #O dataframe que será utilizado para os doadores.
-df = pd.read_csv("dataset_1.csv")
+df = pd.read_csv("EAFL _ Matching - dataset (1).csv")
+df = df.dropna(subset=["TEMA"],axis=0)
 
 
 container1 = st.container()

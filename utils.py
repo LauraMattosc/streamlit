@@ -121,9 +121,9 @@ def build_graph_v2(df):
 
        for edge in range(len(sub_df)):
                
-           if sub_df.iloc[edge]["lado"] == "doador":
+           if sub_df.iloc[edge]["lado"] == "oferta":
                edges.append( Edge(source=sub_df.iloc[edge]["PESSOA"], 
-                                   label="doando",
+                                   label="oferta",
                                    target=sub_df.iloc[edge]["TEMA"],
                                    color='#000000',
                                    font = {"size":5}
@@ -149,7 +149,7 @@ def build_graph_v2(df):
                     height=750,
                     collapsible = True,
                     overlap = False,
-                    nodesep = 10,
+                    nodesep = 100,
                     #center = True,
                     repulsion= {'centralGravity': 2}
                     #splines = True,
