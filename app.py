@@ -4,6 +4,9 @@ import pandas as pd
 import utils
 import config
 from PIL import Image
+import sys
+
+coding = sys.stdout.encoding
 
 
 # [theme]
@@ -130,7 +133,7 @@ with container2:
             # extract clickable text to display for your link
             
             try:
-                text = link.split("/")[-2]
+                text = link.split("/")[-2].encode(coding)
                 
                 return f'<a target="_blank" href="{link}">{text}</a>'
             
@@ -159,6 +162,7 @@ with container1:
     
     return_value = utils.build_graph_v2(df)
     
+
 
 
 
