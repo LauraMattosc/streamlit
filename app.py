@@ -50,7 +50,7 @@ with col2:
 
 
 #O dataframe que será utilizado para os doadores.
-df = pd.read_csv("dataset.csv")
+df = pd.read_csv("dataset_1.csv")
 
 
 container1 = st.container()
@@ -128,8 +128,16 @@ with container2:
         def make_clickable(link):
             # target _blank to open new window
             # extract clickable text to display for your link
-            text = link.split("/")[-2]
-            return f'<a target="_blank" href="{link}">{text}</a>'
+            
+            try:
+                text = link.split("/")[-2]
+                
+                return f'<a target="_blank" href="{link}">{text}</a>'
+            
+            except Exception:
+                return "Sem dados"
+                
+        
         
         # link is the column with hyperlinks
         new_df['LINKEDIN'] = new_df['LINKEDIN'].apply(make_clickable)
