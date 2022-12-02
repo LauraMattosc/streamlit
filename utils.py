@@ -153,7 +153,7 @@ def build_graph_v2(df):
                
 
     config = Config(width=850, 
-                    height=2500,
+                    height=1500,
                     collapsible = True,
                     overlap = False,
                     nodesep = 100,
