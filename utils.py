@@ -87,13 +87,13 @@ def build_graph_v2(df):
             if len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]) < 8:
                 SIZE = 8
             else:
-                SIZE = len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]) * 0.5
+                SIZE = len(df[df["TEMA"] ==  df.iloc[i]["TEMA"] ]) * 0.3
             
             nodes.append( Node(id=df.iloc[i]["TEMA"], 
                                 label=df.iloc[i]["TEMA"], 
-                                size=SIZE,
+                                size=16,
                                 color = "#16537e",
-                                mass = 3.5
+                                mass = 1
                                 #shape="circularImage",
                           )) # includes **kwargs
             
@@ -109,8 +109,9 @@ def build_graph_v2(df):
             nodes.append( Node(id=df.iloc[i]["PESSOA"], 
                                 label=df.iloc[i]["PESSOA"], 
                                 size=8,
+                                #mass = 1,
                                 color = "#0ae198",
-                                font = {"size":8}
+                                font = {"size":5}
                                 #image = "https://juliocprocha.wordpress.com/",
                                 #shape="circularImage",
                           )) # includes **kwargs
@@ -133,6 +134,7 @@ def build_graph_v2(df):
                                    #label="oferta",
                                    target=sub_df.iloc[edge]["TEMA"],
                                    color='#000000',
+                                   length = 200,
                                    #font = {"size":5}
                                    # **kwargs
                                    ) 
@@ -143,6 +145,7 @@ def build_graph_v2(df):
                                     #label="recebe", 
                                     target=sub_df.iloc[edge]["PESSOA"],
                                     color='#000000',
+                                    length = 200,
                                     #font = {"size":5}
                                     # **kwargs
                                     ) 
@@ -153,13 +156,17 @@ def build_graph_v2(df):
                
 
     config = Config(width='100%', 
-                    height=850,
+                    height=750,
                     collapsible = True,
-                    overlap = False,
-                    nodesep = 100,
-                    improvedLayout=True,
+                    overlap = True,
+                    nodesep = 500,
+                    improvedLayout=False,
+                    stabilization = {'enabled':False},
+                    #clusterThreshold = 20,
+                    #hierarchical = {'enabled':True,
+                    #                'direction':'DU'},
                     #center = True,
-                    repulsion= {'centralGravity': 2}
+                    #repulsion= {'centralGravity': 2}
                     #splines = True,
                     # **kwargs
                     )
@@ -169,6 +176,7 @@ def build_graph_v2(df):
            edges=edges, 
            config=config)
     
+
 
 
 

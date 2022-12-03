@@ -53,7 +53,8 @@ with col2:
 
 
 #O dataframe que será utilizado para os doadores.
-df = pd.read_csv("EAFL _ Matching - dataset (1).csv")
+df = pd.read_csv("dataset_2.csv",encoding = "utf8")
+
 df = df.dropna(subset=["TEMA"],axis=0)
 
 
@@ -77,11 +78,15 @@ with container2:
     df = df[df["lado"].isin(lados)]
     
     
+    
     with st.expander("Selecione os temas"):
         temas_options = st.multiselect(
                           'TEMAS',
                           temas,
-                          temas)
+                          ['São Paulo','Educação','Terceiro Setor',
+                           'Mestrado, Doutorado, MBA, Estudar Fora',
+                           'Setor Público Executivo'],
+                          )
         
         all_temas = st.checkbox('Selecionar todos os temas?')
         if all_temas:
