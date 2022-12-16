@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - pip install git-remote-codecommit
+      - git config --global --add protocol.codecommit.allow always
+
+
+  pre_build:
+    commands:
+      - aws --version
+      - git clone codecommit://streamlit-deploy
+
+  build:
+    commands:
+      - echo Package started on date
+      - cp -r techsocial-deploy/* .
+      - ls -la 
+
+  post_build:
+    commands:
+      - echo Build completed on date
+artifacts:
+  files:
+    - '**/*'
